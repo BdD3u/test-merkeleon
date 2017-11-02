@@ -2,28 +2,49 @@
 
 namespace App;
 
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 
-class User extends Authenticatable
+/**
+ * Class User
+ * @package App
+ *
+ * @property integer $balance
+ * @property integer $id
+ */
+class User extends Model
 {
-    use Notifiable;
+    protected $table = 'user';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name', 'email', 'password',
+    public $timestamps = false;
+    public $fillable = [
+        'id',
+        'balance',
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
+    protected const C_ERR_FEATURE_DISABLED = 'This feature has been disabled';
+
+    public function setUpdatedAt($value)
+    {
+        throw new \Exception(static::C_ERR_FEATURE_DISABLED);
+    }
+
+    public function setCreatedAt($value)
+    {
+        throw new \Exception(static::C_ERR_FEATURE_DISABLED);
+    }
+
+    public function getUpdatedAtColumn()
+    {
+        throw new \Exception(static::C_ERR_FEATURE_DISABLED);
+    }
+
+    public  function getCreatedAtColumn()
+    {
+        throw new \Exception(static::C_ERR_FEATURE_DISABLED);
+    }
+
+    protected function throwFeatureDisabled()
+    {
+        throw new \Exception(static::C_ERR_FEATURE_DISABLED);
+    }
 }
